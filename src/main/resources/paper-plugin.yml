@@ -1,0 +1,14 @@
+name: EchoesOfTheVoid
+main: gg.kite.core.EchoesPlugin
+version: 1.0.0
+api-version: 1.20
+author: KiteGG
+permissions:
+  echoes.summon: { description: "Allows summoning companions", default: op }
+  echoes.command: { description: "Allows commanding companions", default: true }
+  echoes.admin: { description: "Admin commands", default: op }
+commands:
+  void:
+    description: Manage dimensional companions
+    usage: /<command> <summon|command|bond|customize|rift|trade|stats|prune|skill|quest|market|beacon|debug|fuse>
+softdepend: [bStats, Vault, MythicMobs]

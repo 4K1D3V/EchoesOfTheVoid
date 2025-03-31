@@ -1,0 +1,46 @@
+plugins {
+id 'java'
+id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'gg.kite'
+version = '1.0.0'
+description = 'Echoes of the Void - Dimensional Companions by KiteGG'
+
+repositories {
+mavenCentral()
+maven { url 'https://papermc.io/repo/repository/maven-public/' }
+maven { url 'https://repo.mythiccraft.io/repository/maven-public/' }
+maven { url 'https://repo.extendedclip.com/repository/maven-public/' }
+}
+
+dependencies {
+compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
+compileOnly 'io.lumine:MythicBukkit:5.6.1'
+compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+implementation 'com.google.inject:guice:5.1.0'
+implementation 'com.google.code.gson:gson:2.10.1'
+implementation 'org.slf4j:slf4j-api:2.0.9'
+implementation 'org.bstats:bstats-bukkit:3.0.2'
+}
+
+java {
+toolchain {
+languageVersion.set(JavaLanguageVersion.of(17))
+}
+}
+
+tasks {
+shadowJar {
+archiveFileName = "EchoesOfTheVoid-${version}.jar"
+relocate 'com.google.inject', 'gg.kite.shadow.guice'
+relocate 'com.google.gson', 'gg.kite.shadow.gson'
+relocate 'org.slf4j', 'gg.kite.shadow.slf4j'
+relocate 'org.bstats', 'gg.kite.shadow.bstats'
+}
+processResources {
+filesMatching('paper-plugin.yml') {
+expand(project.properties)
+}
+}
+}

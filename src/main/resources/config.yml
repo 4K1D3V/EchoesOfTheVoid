@@ -1,0 +1,244 @@
+general:
+  default_language: "en"
+  max_active_companions: 200
+  resource_pack_url: ""
+
+companions:
+  enabled_types:
+    - "shadow_wisp"
+    - "crimson_golem"
+    - "aether_sprite"
+    - "void_titan"
+  shadow_wisp:
+    entity_type: "VEX"
+    max_health: 10.0
+    corruption_chance: 0.01
+    speed: 0.5
+    spawn_sound: "ENTITY_WITHER_SPAWN"
+    despawn_particle: "SMOKE_LARGE"
+    tick_particle: "SMOKE_NORMAL"
+    tick_particle_evolved: "SOUL_FIRE_FLAME"
+    ambient_sound: "ENTITY_VEX_AMBIENT"
+    ambient_sound_interval: 100
+    inventory_size: 9
+    model: "shadow_wisp_model"
+    skills:
+      scout:
+        1: { xp: 100, ability: "ore_vision" }
+        2: { xp: 300, ability: "teleport_strike" }
+      stealth:
+        1: { xp: 150, ability: "shadow_cloak" }
+        2: { xp: 350, ability: "backstab" }
+    bond_effects:
+      3: { effect: "REGENERATION", duration: 100, amplifier: 1 }
+  crimson_golem:
+    entity_type: "IRON_GOLEM"
+    max_health: 20.0
+    corruption_chance: 0.005
+    speed: 0.3
+    spawn_sound: "ENTITY_IRON_GOLEM_REPAIR"
+    despawn_particle: "LAVA"
+    tick_particle: "FLAME"
+    tick_particle_evolved: "LAVA"
+    ambient_sound: "ENTITY_IRON_GOLEM_STEP"
+    ambient_sound_interval: 80
+    inventory_size: 18
+    model: "crimson_golem_model"
+    skills:
+      tank:
+        1: { xp: 150, ability: "taunt" }
+        2: { xp: 400, ability: "ground_slam" }
+      defender:
+        1: { xp: 200, ability: "shield" }
+        2: { xp: 450, ability: "fortify" }
+    bond_effects:
+      3: { effect: "DAMAGE_RESISTANCE", duration: 100, amplifier: 1 }
+  aether_sprite:
+    entity_type: "ALLAY"
+    max_health: 8.0
+    corruption_chance: 0.02
+    speed: 0.6
+    spawn_sound: "ENTITY_ALLAY_AMBIENT_WITH_ITEM"
+    despawn_particle: "END_ROD"
+    tick_particle: "END_ROD"
+    tick_particle_evolved: "GLOW"
+    ambient_sound: "ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM"
+    ambient_sound_interval: 120
+    inventory_size: 6
+    model: "aether_sprite_model"
+    skills:
+      healer:
+        1: { xp: 80, ability: "heal_aura" }
+        2: { xp: 250, ability: "revive" }
+      support:
+        1: { xp: 120, ability: "speed_boost" }
+        2: { xp: 300, ability: "regen_field" }
+    bond_effects:
+      2: { effect: "HEAL", duration: 60, amplifier: 1 }
+  void_titan:
+    entity_type: "WITHER_SKELETON"
+    max_health: 25.0
+    corruption_chance: 0.008
+    speed: 0.4
+    spawn_sound: "ENTITY_WITHER_SPAWN"
+    despawn_particle: "SOUL"
+    tick_particle: "SOUL_FIRE_FLAME"
+    tick_particle_evolved: "DRAGON_BREATH"
+    ambient_sound: "ENTITY_WITHER_SKELETON_AMBIENT"
+    ambient_sound_interval: 90
+    inventory_size: 27
+    model: "void_titan_model"
+    skills:
+      hybrid:
+        1: { xp: 200, ability: "shadow_taunt" }
+        2: { xp: 500, ability: "void_slam" }
+    bond_effects:
+      3: { effect: "INCREASE_DAMAGE", duration: 100, amplifier: 1 }
+  fusions:
+    shadow_wisp_crimson_golem:
+      type: "void_titan"
+      abilities: ["ore_vision", "taunt"]
+
+synergies:
+  enabled: true
+  shadow_crimson:
+    range: 10.0
+    effect: "invisibility_strength"
+    duration: 40
+    decay_rate: 20
+  triple_shadow:
+    count: 3
+    type: "shadow_wisp"
+    range: 15.0
+    effect: "speed"
+    duration: 60
+    decay_rate: 30
+
+rifts:
+  enabled: true
+  spawn_chance: 0.001
+  duration: 600
+  mob_count: 3
+  max_active: 10
+  block_type: "END_PORTAL"
+  mob_type: "ZOMBIE"
+  mob_name: "Echo Stalker"
+  boss_chance: 0.05
+  mythic_enabled: false
+  mythic_boss: "VoidWarden"
+  dungeon_chance: 0.02
+  loot_table:
+    - { item: "DIAMOND", chance: 0.1, min: 1, max: 3 }
+  stages:
+    1: { mob_count: 3, radius: 1 }
+    2: { mob_count: 5, radius: 2, ticks: 300 }
+  dungeons:
+    stages:
+      1: { mob_count: 5, mob_type: "SKELETON", traps: ["TNT"] }
+      2: { mob_count: 7, mob_type: "ZOMBIE", traps: ["LAVA"] }
+      3: { mob_count: 1, mob_type: "WITHER_SKELETON", boss: true }
+    loot:
+      - { item: "NETHER_STAR", chance: 0.3, min: 1, max: 1 }
+
+void_beacon:
+  enabled: true
+  recipe:
+    enabled: true
+    shape:
+      - "OOO"
+      - "PEP"
+      - "OOO"
+    ingredients:
+      O: "OBSIDIAN"
+      P: "ENDER_PEARL"
+      E: "EMERALD"
+  tiers:
+    1:
+      cost: 0
+      aura: { type: "none", radius: 0, strength: 0 }
+    2:
+      cost: 5
+      aura: { type: "speed", radius: 10, strength: 1 }
+    3:
+      cost: 10
+      aura: { type: "regeneration", radius: 15, strength: 1 }
+  teleport_cost: 2
+  default_summon_type: "shadow_wisp"
+
+quests:
+  enabled: true
+  kill_mobs:
+    count: 10
+    reward: "purify"
+    reward_xp: 50
+  collect_items:
+    item: "EMERALD"
+    count: 5
+    reward: "tier_up"
+    reward_xp: 30
+
+market:
+  enabled: true
+  shard_rate: 5
+
+commands:
+  void:
+    enabled_subcommands:
+      summon: true
+      command: true
+      bond: true
+      customize: true
+      rift: true
+      trade: true
+      stats: true
+      prune: true
+      skill: true
+      quest: true
+      market: true
+      beacon: true
+      debug: true
+      fuse: true
+    summon_types:
+      - "shadow_wisp"
+      - "crimson_golem"
+      - "aether_sprite"
+      - "void_titan"
+    behavior_states:
+      - "follow"
+      - "stay"
+      - "assist"
+    customize_options:
+      name: true
+      color: true
+
+seasonal_events:
+  enabled: true
+  halloween:
+    start: "10-25"
+    end: "11-05"
+    companion: "ghost_wisp"
+    rift_boost: 0.002
+
+instability:
+  enabled: true
+  decay_rate: 1
+  thresholds:
+    100: { event: "storm" }
+    200: { event: "fog" }
+    300: { event: "xp_boost" }
+
+performance:
+  tick_interval_base: 2
+  max_companions_per_chunk: 5
+  max_companions_per_world: 200
+  summon_cooldown: 60
+  thread_pool_size: 4
+  ai_thread_priority: 5
+  persistence_interval: 600
+
+worlds:
+  world:
+    enabled: true
+    max_companions: 100
+  world_nether:
+    enabled: false
